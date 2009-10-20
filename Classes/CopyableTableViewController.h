@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CopyableTableViewCell.h"
-#import "CopyableTableView.h"
 
 @interface CopyableTableViewController : UITableViewController <CopyableTableViewCellDelegate> {
   NSMutableArray *cellValues;

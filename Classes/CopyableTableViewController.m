@@ -11,6 +11,7 @@
 @interface CopyableTableViewController (Private)
 - (void)menuControllerWillHide:(NSNotification *)notification;
 - (void)menuControllerWillShow:(NSNotification *)notification;
+- (void)menuControllerDidShow:(NSNotification *)notification;
 @end
 
 
@@ -28,12 +29,16 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   [[NSNotificationCenter defaultCenter] addObserver:self 
-                                           selector:@selector(menuControllerDidHide:)
+                                           selector:@selector(menuControllerWillHide:)
                                                name:UIMenuControllerWillHideMenuNotification
                                              object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self 
                                            selector:@selector(menuControllerWillShow:)
                                                name:UIMenuControllerWillShowMenuNotification
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self 
+                                           selector:@selector(menuControllerDidShow:)
+                                               name:UIMenuControllerDidShowMenuNotification
                                              object:nil];
 }
 
@@ -62,15 +67,18 @@
 
 #pragma mark Notification Handlers
 
-- (void)menuControllerDidHide:(NSNotification *)notification {
+- (void)menuControllerWillHide:(NSNotification *)notification {
   _showingEditMenu = NO;
-  self.tableView.scrollEnabled = YES;
   [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
    
 - (void)menuControllerWillShow:(NSNotification *)notification {
-  self.tableView.scrollEnabled = NO;
   _showingEditMenu = YES;
+  self.tableView.scrollEnabled = NO;
+}
+
+- (void)menuControllerDidShow:(NSNotification *)notification {
+  self.tableView.scrollEnabled = YES;
 }
    
 #pragma mark Table view methods
@@ -115,8 +123,6 @@
 - (void)copyableTableViewCell:(CopyableTableViewCell *)copyableTableViewCell willBecomeHighlighted:(BOOL)highlighted {
   if (highlighted)
     [self performSelector:@selector(showSelectMenuForCell:) withObject:copyableTableViewCell afterDelay:0.3];
-  if (!highlighted)
-    self.tableView.scrollEnabled = YES;
 }
 
 @end
