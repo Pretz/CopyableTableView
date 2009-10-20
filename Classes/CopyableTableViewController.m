@@ -8,20 +8,38 @@
 
 #import "CopyableTableViewController.h"
 
+@interface CopyableTableViewController (Private)
+- (void)menuControllerWillHide:(NSNotification *)notification;
+- (void)menuControllerWillShow:(NSNotification *)notification;
+@end
+
+
 
 @implementation CopyableTableViewController
 
-@synthesize tableView=copyableTableView;
-
 - (void)loadView {
-  copyableTableView = [[CopyableTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-  copyableTableView.delegate = self;
-  copyableTableView.dataSource = self;
-  self.view = copyableTableView;
-  cellValues = [[NSMutableArray alloc] initWithObjects:@"(555) 555-5555", @"Joe Schmoe", @"10:00am - 4:00pm", nil];
+  [super loadView];
   self.title = @"Example Table View";
+  cellValues = [[NSMutableArray alloc] initWithObjects:@"(555) 555-5555", @"Joe Schmoe", @"10:00am - 4:00pm", nil];
   alertView = [[UIAlertView alloc] init];
   alertView.cancelButtonIndex = [alertView addButtonWithTitle:@"Cancel"];
+}
+
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  [[NSNotificationCenter defaultCenter] addObserver:self 
+                                           selector:@selector(menuControllerDidHide:)
+                                               name:UIMenuControllerWillHideMenuNotification
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self 
+                                           selector:@selector(menuControllerWillShow:)
+                                               name:UIMenuControllerWillShowMenuNotification
+                                             object:nil];
+}
+
+- (void)viewDidUnload {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [super viewDidUnload];
 }
 
 - (void)showSelectMenuForCell:(CopyableTableViewCell *)cell {
@@ -30,20 +48,31 @@
     [cell becomeFirstResponder];
     [sharedMenu setTargetRect:cell.frame inView:self.view];
     [sharedMenu setMenuVisible:YES animated:YES];
-    copyableTableView.showingEditMenu = YES;
-    self.tableView.scrollEnabled = NO;
     // Select cell so it doesn't become un-highlighted if finger moves off it while showing edit menu
     [self.tableView selectRowAtIndexPath:[self.tableView indexPathForCell:cell] animated:NO scrollPosition:UITableViewScrollPositionNone];
   }
 }
 
 - (void)dealloc {
-  [copyableTableView release];
+  [self viewDidUnload];
   [alertView release];
   [cellValues release];
   [super dealloc];
 }
 
+#pragma mark Notification Handlers
+
+- (void)menuControllerDidHide:(NSNotification *)notification {
+  _showingEditMenu = NO;
+  self.tableView.scrollEnabled = YES;
+  [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+}
+   
+- (void)menuControllerWillShow:(NSNotification *)notification {
+  self.tableView.scrollEnabled = NO;
+  _showingEditMenu = YES;
+}
+   
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -71,8 +100,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  if (copyableTableView.showingEditMenu) {
-    // Don't act in response to cell tap or deselect cell if showing edit menu
+  // Don't act in response to cell tap or deselect cell if showing edit menu
+  if (_showingEditMenu) {
     return;
   }
   // Handle any cell selection action here: make phone call, push navigation controller, etc.
@@ -81,12 +110,13 @@
   // Deselect cell after tapping
   [[self.tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
 }
-
+   
 #pragma mark Delegates (CopyableTableViewCell)
-
 - (void)copyableTableViewCell:(CopyableTableViewCell *)copyableTableViewCell willBecomeHighlighted:(BOOL)highlighted {
   if (highlighted)
     [self performSelector:@selector(showSelectMenuForCell:) withObject:copyableTableViewCell afterDelay:0.3];
+  if (!highlighted)
+    self.tableView.scrollEnabled = YES;
 }
 
 @end

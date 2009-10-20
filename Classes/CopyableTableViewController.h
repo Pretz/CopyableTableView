@@ -10,14 +10,10 @@
 #import "CopyableTableViewCell.h"
 #import "CopyableTableView.h"
 
-@interface CopyableTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CopyableTableViewCellDelegate> {
+@interface CopyableTableViewController : UITableViewController <CopyableTableViewCellDelegate> {
   NSMutableArray *cellValues;
   UIAlertView *alertView;
-  CopyableTableView *copyableTableView;
+  BOOL _showingEditMenu;
 }
-
-@property (retain, nonatomic) CopyableTableView *tableView;
-
-- (void)showSelectMenuForCell:(CopyableTableViewCell *)cell;
 
 @end

@@ -12,7 +12,7 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
   window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-  CopyableTableViewController *rootViewController = [[CopyableTableViewController alloc] init];
+  CopyableTableViewController *rootViewController = [[CopyableTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
   rootNavigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
   [rootViewController release];
   

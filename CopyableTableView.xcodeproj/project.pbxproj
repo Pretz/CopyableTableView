@@ -14,7 +14,6 @@
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		FA35D067108C1C39006C37D4 /* CopyableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA35D066108C1C39006C37D4 /* CopyableTableViewController.m */; };
 		FA35D105108C2269006C37D4 /* CopyableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA35D104108C2269006C37D4 /* CopyableTableViewCell.m */; };
-		FA35D14B108C29FD006C37D4 /* CopyableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA35D14A108C29FD006C37D4 /* CopyableTableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +30,6 @@
 		FA35D066108C1C39006C37D4 /* CopyableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CopyableTableViewController.m; sourceTree = "<group>"; };
 		FA35D103108C2269006C37D4 /* CopyableTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyableTableViewCell.h; sourceTree = "<group>"; };
 		FA35D104108C2269006C37D4 /* CopyableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CopyableTableViewCell.m; sourceTree = "<group>"; };
-		FA35D149108C29FD006C37D4 /* CopyableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyableTableView.h; sourceTree = "<group>"; };
-		FA35D14A108C29FD006C37D4 /* CopyableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CopyableTableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +49,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				FA35D149108C29FD006C37D4 /* CopyableTableView.h */,
-				FA35D14A108C29FD006C37D4 /* CopyableTableView.m */,
 				FA35D103108C2269006C37D4 /* CopyableTableViewCell.h */,
 				FA35D104108C2269006C37D4 /* CopyableTableViewCell.m */,
 				FA35D065108C1C39006C37D4 /* CopyableTableViewController.h */,
@@ -167,7 +162,6 @@
 				1D3623260D0F684500981E51 /* CopyableTableViewAppDelegate.m in Sources */,
 				FA35D067108C1C39006C37D4 /* CopyableTableViewController.m in Sources */,
 				FA35D105108C2269006C37D4 /* CopyableTableViewCell.m in Sources */,
-				FA35D14B108C29FD006C37D4 /* CopyableTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

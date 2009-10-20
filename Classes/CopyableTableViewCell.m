@@ -34,8 +34,6 @@
 - (void)copy:(id)sender {
   UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
   [pasteboard setString:self.textLabel.text];
-  // Deselect cell after copying to pasteboard
-  [self setSelected:NO animated:YES];
 }
 
 - (void)dealloc {
