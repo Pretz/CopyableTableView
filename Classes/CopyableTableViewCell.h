@@ -11,7 +11,7 @@
 @class CopyableTableViewCell;
 
 @protocol CopyableTableViewCellDelegate
-- (void)copyableTableViewCell:(CopyableTableViewCell *)copyableTableViewCell willBecomeHighlighted:(BOOL)highlighted;
+- (void)copyableTableViewCell:(CopyableTableViewCell *)copyableTableViewCell willHighlight:(BOOL)highlighted;
 @end
 
 

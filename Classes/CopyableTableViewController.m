@@ -120,7 +120,7 @@
 }
    
 #pragma mark Delegates (CopyableTableViewCell)
-- (void)copyableTableViewCell:(CopyableTableViewCell *)copyableTableViewCell willBecomeHighlighted:(BOOL)highlighted {
+- (void)copyableTableViewCell:(CopyableTableViewCell *)copyableTableViewCell willHighlight:(BOOL)highlighted {
   if (highlighted)
     [self performSelector:@selector(showSelectMenuForCell:) withObject:copyableTableViewCell afterDelay:0.3];
 }

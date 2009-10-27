@@ -15,7 +15,7 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
   if (delegate)
-    [delegate copyableTableViewCell:self willBecomeHighlighted:highlighted];
+    [delegate copyableTableViewCell:self willHighlight:highlighted];
   [super setHighlighted:highlighted animated:animated];
 }
 
